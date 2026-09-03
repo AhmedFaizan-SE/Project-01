@@ -5,6 +5,9 @@ const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/WebDatabase";
 const Listing = require("./models/listing.js");
 
+
+
+
 main()
 .then(()=>{
     console.log("DB connected");
@@ -15,12 +18,11 @@ main()
 async function main() {
     await mongoose.connect(MONGO_URL);
 }
-
-
-
 app.get("/",(req,res)=>{
     res.send("Hi");
 });
+
+
 
 app.get("/listingtest", async (req,res)=>{
     let sample = new Listing({
