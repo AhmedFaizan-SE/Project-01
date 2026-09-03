@@ -1,2 +1,2 @@
 # Project-01
-This is my first project website which is a clone of airbnb.
+This is my first website, which is a clone of Airbnb.
