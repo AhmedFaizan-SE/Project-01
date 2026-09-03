@@ -4,7 +4,9 @@ const port = 8080;
 const mongoose = require("mongoose");
 const MONGO_URL = "mongodb://127.0.0.1:27017/WebDatabase";
 const Listing = require("./models/listing.js");
-
+const path = require("path");
+app.set("views",path.join(__dirname,"views"));
+app.set("view engine","ejs");
 
 
 
@@ -23,19 +25,24 @@ app.get("/",(req,res)=>{
 });
 
 
-
-app.get("/listingtest", async (req,res)=>{
-    let sample = new Listing({
-        title: "New villa",
-        description:"This is new Villa",
-        price: 1200,
-        location: "California",
-        country: "USA"
-    });
-    await sample.save();
-    console.log("Data saved");
-    res.send("Data Saved");
+app.get("/listings", async (req,res)=>{
+     const allListings = await Listing.find({});
+     res.render("listing/index.ejs", {allListings});
 });
+
+
+// app.get("/listingtest", async (req,res)=>{
+//     let sample = new Listing({
+//         title: "New villa",
+//         description:"This is new Villa",
+//         price: 1200,
+//         location: "California",
+//         country: "USA"
+//     });
+//     await sample.save();
+//     console.log("Data saved");
+//     res.send("Data Saved");
+// });
 
 app.listen(port, ()=>{
      console.log("Listening");

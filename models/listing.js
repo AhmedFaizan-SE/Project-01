@@ -6,8 +6,8 @@ const listingSchema = new Schema({
     description: String,
     image: {
         type: String,
-        set : (v)=>{
-            v===""? "link" : v;
+        default: "https://unsplash.com/photos/3d-render-of-luxury-hotel-lobby-and-reception-FNAURWZ6Mqc",        set : (v)=>{
+            v===""? "https://unsplash.com/photos/3d-render-of-luxury-hotel-lobby-and-reception-FNAURWZ6Mqc" : v;
         }
     },
     price: Number,
