@@ -1,0 +1,16 @@
+
+
+body {
+	background: #ffa6a6;
+}
+
+.navbar{
+	height: 5rem;
+	background-color: white;
+}
+
+a.navbar-brand{
+ color: red;
+}
+
+
