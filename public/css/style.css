@@ -1,5 +1,4 @@
 
-
 body {
 	background: #ffa6a6;
 }
@@ -13,4 +12,58 @@ a.navbar-brand{
  color: red;
 }
 
+.f-info-links a{
+	text-decoration: none;
+	color: #222;
+}
 
+.f-info-links a:hover{
+	text-decoration: underline;
+}
+
+.f-info-links{
+	
+	width: 100pc;
+}
+.f-info-socials{
+	margin-top: 20px;
+	width: 100pc;
+}
+.f-info{
+	text-align: center;
+	height: 8rem;
+	display: flex;
+	background-color: rgb(242, 241, 241);
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: space-evenly;
+}
+
+/* Cards */
+.card{
+	border: none !important;
+	margin-bottom: 2rem;
+}
+
+.card-img-top{
+	border-radius: 1rem !important;
+	width: 100% !important;
+	object-fit: cover !important;
+}
+
+.card-body{
+	padding: 0 !important;
+	margin: 4px 0px 0px 4px;
+}
+.listing-link{
+	text-decoration: none;
+}
+
+/* card effect */
+.card-img-overlay{
+	opacity: 0;
+}
+.card-img-overlay:hover{
+	opacity: 0.2;
+	background-color: white;
+}

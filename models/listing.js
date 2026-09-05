@@ -6,9 +6,9 @@ const listingSchema = new Schema({
     description: String,
     image: {
         type: String,
-        default: "https://unsplash.com/photos/3d-render-of-luxury-hotel-lobby-and-reception-FNAURWZ6Mqc", 
-          set : (v)=>{
-          return v===""? "https://unsplash.com/photos/3d-render-of-luxury-hotel-lobby-and-reception-FNAURWZ6Mqc" : v;
+        default: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80",
+        set: (v) => {
+            return v === "" ? "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80" : v;
         }
     },
     price: Number,
