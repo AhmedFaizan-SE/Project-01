@@ -80,27 +80,14 @@ app.delete("/listings/:id", wrapAsync(async(req, res)=>{
     res.redirect("/listings");
 }));
 
-
-
-// app.get("/listingtest", async (req,res)=>{
-//     let sample = new Listing({
-//         title: "New villa",
-//         description:"This is new Villa",
-//         price: 1200,
-//         location: "California",
-//         country: "USA"
-//     });
-//     await sample.save();
-//     console.log("Data saved");
-//     res.send("Data Saved");
-// });
 app.all("/*splat", (req, res, next)=>{
  next(new ExpressError(404, "Page not Found!"));
 })
 
 app.use((err, req, res, next)=>{
     let {statusCode=500, message="Something went wrong!"} = err;
-    res.status(statusCode).send(message);  
+    // res.status(statusCode).send(message);  
+    res.status(statusCode).render("listing/error.ejs", {message});
 });
 app.listen(port, ()=>{
      console.log("Listening");
