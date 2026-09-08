@@ -1,11 +1,11 @@
 <% layout("layout/boilerplate") %>
 <body>
-    <h3>All Listing Title</h3>
+    <h3 class="listheading mt-3">All Listing Title</h3>
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
     <% for(let list of allListings){%>
         <a href="/listings/<%=list._id %>" class="listing-link">
     <div class="card">
-<img src="<%= list.image %>" class="card-img-top" alt="<%= list.title %>" style="width: 100%; height: 220px; object-fit: cover;">
+<img src="<%= list.image.includes('?') ? list.image + '&auto=format&fit=crop&w=500&q=70' : list.image + '?auto=format&fit=crop&w=500&q=70' %>" class="card-img-top" alt="<%= list.title %>" loading="lazy" decoding="async" style="width: 100%; height: 220px; object-fit: cover;">
 <div class="card-img-overlay"> </div> 
 <div class="card-body">
     <p class="card-text">

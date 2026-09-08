@@ -12,7 +12,7 @@ const ExpressError = require("./utils/ExpressError.js")
 const {listingSchema} = require("./schema.js");
 
 app.set("views",path.join(__dirname,"views"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
 app.set("view engine","ejs");
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
