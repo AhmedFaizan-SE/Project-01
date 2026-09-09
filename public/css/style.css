@@ -1,6 +1,6 @@
 
 body {
-	background: #ffa6a6;
+	background: white;
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
@@ -73,4 +73,7 @@ a.navbar-brand{
 .card-img-overlay:hover{
 	opacity: 0.2;
 	background-color: white;
+}
+.review-card{
+ border: 1px solid #222 !important
 }
