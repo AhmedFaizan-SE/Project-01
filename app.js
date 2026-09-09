@@ -10,6 +10,8 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError = require("./utils/ExpressError.js")
 const {listingSchema} = require("./schema.js");
+const Review = require("./models/review.js");
+
 
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
@@ -83,6 +85,19 @@ app.delete("/listings/:id", wrapAsync(async(req, res)=>{
     let {id} = req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
+}));
+
+// review
+
+app.post("/listings/:id/reviews", wrapAsync( async(req, res)=>{
+    let listing = await Listing.findById(req.params.id);
+    let newReview = new Review(req.body.review);
+
+    listing.reviews.push(newReview);
+    await newReview.save();
+    await listing.save();
+    res.redirect(`/listings/${listing._id}`);
+
 }));
 
 app.all("/*splat", (req, res, next)=>{
