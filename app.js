@@ -11,7 +11,7 @@ const wrapAsync = require("./utils/wrapAsync.js")
 const ExpressError = require("./utils/ExpressError.js")
 const {listingSchema, reviewSchema} = require("./schema.js");
 const Review = require("./models/review.js");
-
+const listings = require("./routes/listing.js");
 
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
@@ -33,13 +33,7 @@ async function main() {
     await mongoose.connect(MONGO_URL);
 }
 
-const validateListing = (req, res, next)=>{
-    let {error} = listingSchema.validate(req.body);
-    if(error){
-        let errMsg = error.details.map((el)=> el.message).join(",");
-        throw new ExpressError(404, errMsg);
-    } else next();
-}
+
 
 const validateReview= (req, res, next)=>{
     let {error} = reviewSchema.validate(req.body);
@@ -49,51 +43,12 @@ const validateReview= (req, res, next)=>{
     } else next();
 }
 
+app.use("/listings", listings);
+
 app.get("/",(req,res)=>{
     res.send("Hi");
 });
 
-// Index Route
-app.get("/listings", wrapAsync(async (req,res)=>{
-     const allListings = await Listing.find({});
-     res.render("listing/index.ejs", {allListings});
-}));
-// New Route
-app.get("/listings/new", (req,res)=>{
-    res.render("listing/new.ejs");
-})
-// Show Route
-app.get("/listings/:id", wrapAsync(async (req, res)=>{
-    let {id} = req.params;
-    let listing = await Listing.findById(id).populate("reviews");
-    res.render("listing/show.ejs", {listing});
-}));
-
-// Create Route
-app.post("/listings", validateListing, wrapAsync( async(req,res,next)=>{ 
-
-    const newListing = new Listing(req.body.listing);
-    await newListing.save();
-    res.redirect("/listings");
-}));
-// Edit Route
-app.get("/listings/:id/edit", wrapAsync(async (req,res)=>{
-    let {id} = req.params;
-    let listing = await Listing.findById(id);
-    res.render("listing/edit.ejs", {listing});
-}));
-// Update Route
-app.put("/listings/:id",validateListing, wrapAsync(async (req,res)=>{
-    let {id} = req.params;
-    await Listing.findByIdAndUpdate(id,{...req.body.listing});
-    res.redirect("/listings");
-}));
-// Delete Route
-app.delete("/listings/:id", wrapAsync(async(req, res)=>{
-    let {id} = req.params;
-   let deleteListing = await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-}));
 
 // Post revivew
 
