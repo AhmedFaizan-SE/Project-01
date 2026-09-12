@@ -9,7 +9,7 @@ This is my first website, which is a clone of Airbnb.
 npm install
 ```
 
-2. Start MongoDB locally. The application connects to `WebDatabase` on the default MongoDB port.
+2. Start MongoDB locally.
 
 3. Start the development server:
 
