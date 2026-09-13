@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError.js")
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 
+// Serve EJS templates from the views folder and static assets from public/.
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
 app.set("view engine","ejs");
@@ -19,6 +20,7 @@ app.engine('ejs', ejsMate);
 
 
 
+// Connect once at startup so all route handlers can access MongoDB models.
 main()
 .then(()=>{
     console.log("DB connected");
@@ -30,7 +32,7 @@ async function main() {
     await mongoose.connect(MONGO_URL);
 }
 
-
+// Route groups keep the listing and review APIs organized.
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
 
