@@ -9,6 +9,7 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js")
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+const session = require("express-session");
 
 // Serve EJS templates from the views folder and static assets from public/.
 app.set("views",path.join(__dirname,"views"));
@@ -35,6 +36,14 @@ async function main() {
 // Route groups keep the listing and review APIs organized.
 app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
+
+const sessionOptions = {
+    secret: "mysupersecretcode",
+    resave:  false,
+    saveUninitialized: true
+};
+
+app.use(session(sessionOptions));
 
 app.get("/",(req,res)=>{
     res.send("Hi");
