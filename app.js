@@ -10,6 +10,7 @@ const ExpressError = require("./utils/ExpressError.js")
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 const session = require("express-session");
+const flash = require("connect-flash");
 
 // Serve EJS templates from the views folder and static assets from public/.
 app.set("views",path.join(__dirname,"views"));
@@ -33,21 +34,34 @@ async function main() {
     await mongoose.connect(MONGO_URL);
 }
 
-// Route groups keep the listing and review APIs organized.
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+
 
 const sessionOptions = {
     secret: "mysupersecretcode",
     resave:  false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie : {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 3,
+        maxAge:  1000 * 60 * 60 * 24 * 3,
+        httpOnly: true
+    }
 };
-
-app.use(session(sessionOptions));
 
 app.get("/",(req,res)=>{
     res.send("Hi");
 });
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next)=>{
+    res.locals.success = req.flash("success");
+    next();
+})
+
+// Route groups keep the listing and review APIs organized.
+app.use("/listings", listings);
+app.use("/listings/:id/reviews", reviews);
 
 
 
