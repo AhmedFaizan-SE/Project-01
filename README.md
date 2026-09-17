@@ -27,3 +27,7 @@ npm run dev
 - `views/` - EJS pages and shared layout files
 - `public/` - Browser-side JavaScript and CSS
 - `init/` - Seed data and database initialization helpers
+
+## How to read the request flow
+
+For a listing request, start in `app.js` to see how the router is mounted. Then follow the matching handler in `routes/listing.js`, where the request is validated and the `Listing` model is queried. The handler passes the result to an EJS template in `views/listing/`, while shared navigation, flash messages, and the footer live in `views/includes/`.
