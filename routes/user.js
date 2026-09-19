@@ -8,13 +8,18 @@ router.get("/signup", (req, res)=> {
     res.render("user/signup.ejs");
 });
 
-router.post("/signup", async(req, res)=>{
+router.post("/signup", async(req, res, next)=>{
    try{
     let {username, email, password} = req.body;
     const newUser = new User({email, username});
     const registeredUser = await User.register(newUser, password);
-    req.flash("success", "Welcome to AirBnb");
-    res.redirect("/listings");
+    req.login(registeredUser, (err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success", "Welcome to AirBnb");
+        res.redirect("/listings");
+    });
    } catch(e){
     req.flash("error", e.message);
     res.redirect("/signup");
