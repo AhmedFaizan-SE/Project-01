@@ -6,13 +6,13 @@ const {saveRedirectUrl} = require("../middleware.js")
 
 const userConroller = require("../controllers/user.js");
 
-router.get("/signup", userConroller.renderSignup);
+router.route("/signup")
+.get( userConroller.renderSignup)
+.post(userConroller.userSignup);
 
-router.post("/signup", userConroller.userSignup);
-
-router.get("/login", userConroller.renderLogin);
-
-router.post("/login",saveRedirectUrl,
+router.route("/login")
+.get(userConroller.renderLogin)
+.post(saveRedirectUrl,
      passport.authenticate("local",
          { failureRedirect: "/login", failureFlash: true}),
           userConroller.userLogin
