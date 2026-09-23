@@ -5,7 +5,9 @@ const { isLoggedIn, validateListing, isOwner } = require("../middleware.js");
 
 const listingConroller = require("../controllers/listing.js");
 
-// Listing routes: list all listings + create a new one.
+// Main listing collection routes:
+// - GET /listings        => view all listings
+// - POST /listings       => create a new listing after validation and login checks
 router.route("/")
   .get(wrapAsync(listingConroller.index))
   .post(
@@ -14,10 +16,13 @@ router.route("/")
     wrapAsync(listingConroller.createListing)
   );
 
-// Route to render the form for creating a new listing.
+// New listing form route: only authenticated users can access it.
 router.get("/new", isLoggedIn, listingConroller.newListing);
 
-// Routes for a single listing: view, update, and delete.
+// Single listing actions:
+// - GET /listings/:id     => view one listing
+// - PUT /listings/:id     => update only if owner and valid input
+// - DELETE /listings/:id  => remove only if owner
 router.route("/:id")
   .get(wrapAsync(listingConroller.showListing))
   .put(
