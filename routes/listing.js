@@ -3,7 +3,8 @@ const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync.js");
 const { isLoggedIn, validateListing, isOwner } = require("../middleware.js");
 const multer = require("multer");
-const upload = multer( {dest: 'uploads/'});
+const {storage} = require("../cloudConfig.js");
+const upload = multer( {storage});
 
 const listingConroller = require("../controllers/listing.js");
 
@@ -13,10 +14,15 @@ const listingConroller = require("../controllers/listing.js");
 router.route("/")
   .get(wrapAsync(listingConroller.index))
   .post(
+    isLoggedIn,
     upload.single('listing[image]'),
-    (req, res) =>{
-      res.send(req.file);
-    }
+    (req, res, next) => {
+      console.log(req.file);
+      req.body.listing.image = req.file ? req.file.path : "";
+      next();
+    },
+    validateListing,
+    wrapAsync(listingConroller.createListing)
   );
 
 // New listing form route: only authenticated users can access it.
