@@ -16,6 +16,7 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js")
 
+
 // Serve EJS templates from the views folder and static assets from public/.
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname, "public"), { maxAge: "1d" }));
