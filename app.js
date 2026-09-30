@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != 'production'){
+    require("dotenv").config();
+}
+
 const express = require('express');
 const app = express();
 const port = 8080;
@@ -14,7 +18,8 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const localStrategy = require("passport-local");
-const User = require("./models/user.js")
+const User = require("./models/user.js");
+
 
 
 // Serve EJS templates from the views folder and static assets from public/.
