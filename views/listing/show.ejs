@@ -5,7 +5,7 @@
     <h3>Listing Details</h3>
     </div>
     <div class="card col-6 offset-3" style="border: none !important;">
-        <img src="<%= listing.image %>"
+        <img src="<%= listing.image.url %>"
          alt="<%=listing.title%>"
           class="card-img-top show-img">
           <div><i><b> Owner: <%= listing.owner ? listing.owner.username : "Unknown" %></b></i></div> <br>

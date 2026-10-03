@@ -17,7 +17,7 @@ router.route("/")
     isLoggedIn,
     upload.single('listing[image]'),
     (req, res, next) => {
-      console.log(req.file);
+      req.body.listing = req.body.listing || {};
       req.body.listing.image = req.file ? req.file.path : "";
       next();
     },
