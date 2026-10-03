@@ -16,11 +16,6 @@ router.route("/")
   .post(
     isLoggedIn,
     upload.single('listing[image]'),
-    (req, res, next) => {
-      req.body.listing = req.body.listing || {};
-      req.body.listing.image = req.file ? req.file.path : "";
-      next();
-    },
     validateListing,
     wrapAsync(listingConroller.createListing)
   );
