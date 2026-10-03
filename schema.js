@@ -1,5 +1,13 @@
 const Joi = require("joi");
 
+const imageSchema = Joi.alternatives().try(
+    Joi.string().allow("", null),
+    Joi.object({
+        url: Joi.string().uri().required(),
+        filename: Joi.string().required(),
+    }).required()
+).allow(null);
+
 module.exports.listingSchema = Joi.object({
     listing: Joi.object({
         title: Joi.string().required(),
@@ -7,7 +15,7 @@ module.exports.listingSchema = Joi.object({
         location: Joi.string().required(),
         country: Joi.string().required(),
         price: Joi.number().required().min(0),
-        image: Joi.string().allow("", null)
+        image: imageSchema,
     }).required(),
 });
 
