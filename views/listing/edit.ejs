@@ -5,7 +5,8 @@
             <div class="col-8 offset-2">
                 <h3>Edit your Listing</h3>
                 <%# Keep the nested field names aligned with the listing schema; the query parameter lets Express treat this POST as a PUT. %>
-                <form method="post" action="/listings/<%=listing._id%>?_method=PUT" novalidate class="needs-validation">
+                <form method="post" action="/listings/<%=listing._id%>?_method=PUT"
+                     novalidate class="needs-validation" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         <input name="listing[title]" value="<%= listing.title%>" class="form-control" required>
@@ -19,8 +20,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="Image" class="form-label">Image</label>
-                       <input name="listing[image]" value="<%= listing.image%>" class="form-control" required>
-                       <div class="invalid-feedback">Please Enter Url</div>
+                       <input name="listing[image]" class="form-control" type="file">
+        
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-4">
